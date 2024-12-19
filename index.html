@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mebel Bekas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Reset dan Gaya Dasar */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #343a40;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    .hero {
+      background-image: url('https://raw.githubusercontent.com/ma8azis/belajarweb/refs/heads/master/hero-img.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 350px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+    
+    .hero h2 {
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1rem;
+      border-radius: 5px;
+    }
+    .hero a {
+      margin-top: 1rem;
+      text-decoration: none;
+      background-color: #25d366;
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      display: inline-block;
+    }
+    .hero a:hover {
+      background-color: #1da851;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.5rem;
+    }
+
+    /* Grid Produk */
+    .product {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Kartu Produk */
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+	  position: relative;
+	  overflow: hidden;
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      transition: transform 0.3s ease; /* Menambahkan efek transisi */
+    }
+
+    .card img:hover {
+      transform: scale(1.1); /* Menambahkan efek zoom ketika gambar dihover */
+    }
+	
+	/* Mengatur tampilan overlay untuk produk stok habis */
+.card.out-of-stock {
+  position: relative; /* Menjaga posisi overlay berada di atas card */
+  pointer-events: none; /* Menonaktifkan klik pada card */
+}
+
+/* Menampilkan pesan 'Stok Habis' dengan latar belakang */
+.out-of-stock-text {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  color: white;
+  font-weight: bold;
+  z-index: 10;
+  padding: 10px 20px; /* Memberi ruang di sekitar teks */
+  background-color: rgba(255, 0, 0, 0.5); /* Latar belakang merah transparan */
+  border-radius: 5px; /* Sudut melengkung */
+  text-align: center;
+}
+
+/* Mengatur ukuran overlay */
+.card.out-of-stock .out-of-stock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* Overlay putih transparan */
+  z-index: 5; /* Pastikan overlay tampil di atas gambar */
+  display: block;
+}
+
+/* Responsive untuk tampilan lebih kecil */
+@media (max-width: 767px) {
+  .out-of-stock-text {
+    font-size: 1rem; /* Mengurangi ukuran font pada perangkat kecil */
+    padding: 8px 12px; /* Mengurangi padding pada perangkat kecil */
+  }
+  
+  .card.out-of-stock .out-of-stock-text {
+    top: 30%; /* Menyesuaikan posisi teks untuk tampilan lebih kecil */
+  }
+}
+	
+	.card h3 {
+      margin: 0.5rem 0;
+    }
+    .card p {
+      color: #555;
+	  font-size: 1rem; /* Ukuran font standar */
+    }
+
+    /* Deskripsi singkat produk */
+    .product-description {
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 0.5rem;
+    }
+
+    /* Tombol WhatsApp dengan logo */
+    .whatsapp-btn {
+      background-color: #25d366;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+    .whatsapp-btn img {
+      width: 20px;
+      height: auto;
+      margin-right: 10px;
+    }
+    .whatsapp-btn:hover {
+      background-color: #1da851;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #343a40;
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
+    footer a {
+      color: #25d366;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer a:hover {
+      color: #1da851;
+    }
+    footer p {
+      margin: 0.5rem 0;
+    }
+
+    /* Media Queries */
+    @media (min-width: 768px) {
+      .product {
+        grid-template-columns: repeat(3, 1fr); 
+      }
+    }
+
+    @media (max-width: 767px) {
+      .product {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product {
+        grid-template-columns: 1fr;
+      }
+	  /* Media Queries */
+@media (max-width: 767px) {
+  /* Mengubah ukuran teks pada tampilan mobile */
+  .card p {
+    font-size: 0.9rem; /* Ukuran teks harga lebih kecil pada mobile */
+  }
+
+  .product-description {
+    font-size: 0.8rem; /* Ukuran teks deskripsi lebih kecil pada mobile */
+  }
+
+  .card h3 {
+    font-size: 1.2rem; /* Ukuran teks judul lebih kecil pada mobile */
+  }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mebel Bekas Berkualitas</h1>
+    <p>Pilihan terbaik untuk furnitur bekas yang masih berkualitas tinggi</p>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h2>Selamat Datang di Mebel Bekas</h2>
+      <p>Temukan furnitur berkualitas dengan harga terjangkau!</p>
+      <a href="#produk">Lihat Koleksi Produk</a>
+    </div>
+  </section>
+
+	  <div class="container" id="produk">
+	  <h2><i class="fas fa-tag"></i> Daftar Produk</h2>
+	  <div class="product">
+		<!-- Produk 1 -->
+		<div class="card">
+		  <img src="https://raw.githubusercontent.com/ma8azis/belajarweb/refs/heads/master/img_kursi-meja-kayu-1.jpeg" alt="Kursi Kuliah Kayu Jati">
+		  <h3>Kursi Kuliah Kayu</h3>
+		  <p>Harga: Rp 200.000</p>
+		  <p class="product-description">Deskripsi : Tersedia 60 kursi, harga kursi bisa nego</p>
+		  <a class="whatsapp-btn" href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20kursi%20kayu%20jati">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp Logo"> Hubungi via WhatsApp
+		  </a>
+		</div>
+		<!-- Produk 2 -->
+		<div class="card">
+		  <img src="https://raw.githubusercontent.com/ma8azis/belajarweb/refs/heads/master/img_meja-kursi-cafe_1.jpeg" alt="Kursi Meja Cafe">
+		  <h3>Kursi Meja Cafe</h3>
+		  <p>Harga: Rp 1.000.000</p>
+		  <p class="product-description">Deskripsi : Tersedia 2 Set. @Set 1 Meja dan 4 Kursi</p>
+		  <a class="whatsapp-btn" href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20meja%20minimalis">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp Logo"> Hubungi via WhatsApp
+		  </a>
+		</div>
+		<!-- Produk 3 (produk baru) -->
+		<div class="card">
+		  <img src="https://raw.githubusercontent.com/ma8azis/belajarweb/refs/heads/master/img_kursi-meja-kayu-1.jpeg" alt="Kursi Meja Kayu">
+		  <h3>Kursi Meja Kayu</h3>
+		  <p>Harga: Rp 1.200.000</p>
+		  <p class="product-description">Deskripsi : Tersedia 3 Set. @Set 1 Meja dan 4 Kursi</p>
+		  <a class="whatsapp-btn" href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20kursi%20meja%20kayu">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp Logo"> Hubungi via WhatsApp
+		  </a>
+		</div>
+		<!-- Produk 1 -->
+		<div class="card out-of-stock">
+		  <img src="https://raw.githubusercontent.com/ma8azis/belajarweb/refs/heads/master/img_kursi-meja-kayu-1.jpeg" alt="Kursi Kuliah Kayu Jati">
+		  <h3>Kursi Kuliah Kayu</h3>
+		  <p>Harga: Rp 200.000</p>
+		  <p class="product-description">Deskripsi : Tersedia 60 kursi, harga kursi bisa nego</p>
+		  <a class="whatsapp-btn" href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20kursi%20kayu%20jati">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp Logo"> Hubungi via WhatsApp
+		  </a>
+		  <div class="out-of-stock">
+		  <div class="out-of-stock-text">Stok Habis</div>
+		</div>
+		</div>
+		<!-- Produk 2 -->
+		<div class="card out-of-stock">
+		  <img src="https://raw.githubusercontent.com/ma8azis/belajarweb/refs/heads/master/img_meja-kursi-cafe_1.jpeg" alt="Kursi Meja Cafe">
+		  <h3>Kursi Meja Cafe</h3>
+		  <p>Harga: Rp 1.000.000</p>
+		  <p class="product-description">Deskripsi : Tersedia 2 Set. @Set 1 Meja dan 4 Kursi</p>
+		  <a class="whatsapp-btn" href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20meja%20minimalis">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp Logo"> Hubungi via WhatsApp
+		  </a>
+		  <div class="out-of-stock">
+		  <div class="out-of-stock-text">Stok Habis</div>
+		</div>
+		</div>
+		<!-- Produk 3 (produk baru) -->
+		<div class="card out-of-stock">
+		  <img src="https://raw.githubusercontent.com/ma8azis/belajarweb/refs/heads/master/img_kursi-meja-kayu-1.jpeg" alt="Kursi Meja Kayu">
+		  <h3>Kursi Meja Kayu</h3>
+		  <p>Harga: Rp 1.200.000</p>
+		  <p class="product-description">Deskripsi : Tersedia 3 Set. @Set 1 Meja dan 4 Kursi</p>
+		  <a class="whatsapp-btn" href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20kursi%20meja%20kayu">
+			<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp Logo"> Hubungi via WhatsApp
+		  </a>
+		  <div class="out-of-stock">
+		  <div class="out-of-stock-text">Stok Habis</div>
+		</div>
+		</div>
+	</div>
+
+
+  <footer>
+    <p>&copy; 2024 Mebel Bekas Berkualitas</p>
+    <p>Powered by <a href="#">Mebel Bekas @aziz.dev</a></p>
+  </footer>
+</body>
+</html>
